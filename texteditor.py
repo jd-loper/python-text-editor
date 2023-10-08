@@ -1,13 +1,9 @@
-import os
-
 from tkinter import *
-import tkinter.filedialog
-from tkinter.filedialog import askopenfilename
-
-root = Tk("Text Editor")
 from tkinter import filedialog
 
+root = Tk("Text Editor")
 text = Text(root)
+root.title("ApplePy Text Editor")
 text.grid()
 
 
