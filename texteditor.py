@@ -1,9 +1,11 @@
-from tkinter import *
-from tkinter import filedialog
+import tkinter as tk
+from tkinter import Text, Button, Menubutton, Menu, OptionMenu
+from tkinter import filedialog, font as tkfont
 
-root = Tk("Text Editor")
-text = Text(root)
+root = tk.Tk()
 root.title("ApplePy Text Editor")
+
+text = Text(root)
 text.grid()
 
 
@@ -19,25 +21,18 @@ def saveas():
 button = Button(root, text="Save", command=saveas)
 button.grid()
 
-
-def FontHelvetica():
-    global text
-    text.config(font="Helvetica")
-
-
-def FontCourier():
-    global text
-    text.config(font="Courier")
+# Font chooser
+fonts = list(tkfont.families())
+font_var = tk.StringVar(root)
+font_var.set("SF Mono")  # default value
+font_dropdown = OptionMenu(root, font_var, *fonts)
+font_dropdown.grid()
 
 
-font = Menubutton(root, text="Font")
-font.grid()
-font.menu = Menu(font, tearoff=0)
-font["menu"] = font.menu
-Helvetica = IntVar()
-arial = IntVar()
-times = IntVar()
-Courier = IntVar()
-font.menu.add_checkbutton(label="Courier", variable=Courier, command=FontCourier)
-font.menu.add_checkbutton(label="Helvetica", variable=Helvetica, command=FontHelvetica)
+def update_font(*args):
+    text.config(font=(font_var.get(), 12))  # assuming font size 12
+
+
+font_var.trace("w", update_font)
+
 root.mainloop()
